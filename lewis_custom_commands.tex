@@ -1,0 +1,52 @@
+% This file contains custom commands that Lewis uses frequently in LaTeX documents
+
+\usepackage{subcaption}
+\usepackage{hyperref}
+\hypersetup{colorlinks,allcolors=black}
+% for more https://tex.stackexchange.com/questions/88400/hyperref-changing-the-linkcolor-locally-in-the-toc
+\usepackage{amssymb}
+\usepackage{bbm}
+
+% matlab stuff
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{matlab-prettifier}
+
+%vector arrow
+\usepackage{graphicx}
+\newcommand{\cev}[1]{\reflectbox{\ensuremath{\vec{\reflectbox{\ensuremath{#1}}}}}}
+% table packages
+\usepackage{booktabs}
+\usepackage{adjustbox}
+
+% custom equation commands
+\newcommand{\QOR}{\qquad \text{OR} \qquad}
+\newcommand{\QAND}{\qquad \text{AND} \qquad}
+\newcommand{\QTHUS}{\qquad \text{THUS} \qquad}
+\newcommand{\QWITH}{\qquad \text{WITH} \qquad}
+\newcommand{\QFOR}{\qquad \text{FOR} \qquad}
+\newcommand{\QSO}{\qquad \text{SO} \qquad}
+\newcommand{\QWHERE}{\qquad \text{WHERE} \qquad}
+\newcommand{\QWHEN}{\qquad \text{WHEN} \qquad}
+\newcommand{\LINE}{\par\noindent\rule{\textwidth}{0.4pt}\par}
+\newcommand{\toinf}{\rightarrow\infty}
+\newcommand{\tozero}{\rightarrow0}
+\newcommand{\qeq}{\overset{?}{=}}
+\newcommand{\ceq}{\overset{\checkmark}{=}}
+\newcommand{\Poi}{\text{Poisson}}
+\newcommand{\keff}{$k_{e\!f\!f}$}
+\renewcommand{\epsilon}{\varepsilon} % squiggly epsilon
+
+\def\brac#1{\{#1\}}
+\def\Brac#1{\big\{#1\big\}}
+\def\BRAC#1{\bigg\{#1\bigg\}}
+\def\angbrac#1{\langle#1\rangle}
+\def\Angbrac#1{\big\langle#1\big\rangle}
+\def\ANGBRAC#1{\bigg\langle#1\bigg\rangle}
+\usepackage{float}
+% SI Units
+\usepackage{siunitx}
+\DeclareSIUnit\n{n}
+\DeclareSIUnit\sp{sp}
+
+\def\doubleunderline#1{\underline{\underline{#1}}}
