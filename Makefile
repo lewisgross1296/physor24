@@ -17,7 +17,7 @@ pdf: $(manuscript).tex
 	bibtex build/$(manuscript)
 	pdflatex $(latexopt) $(manuscript)
 	pdflatex $(latexopt) $(manuscript)
-	cp build/$(manuscript).pdf .
+	mv build/$(manuscript).pdf .
 
 pdfbibtex: $(manuscript).tex physor2024.bib
 	mkdir -p build
