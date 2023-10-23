@@ -36,6 +36,7 @@
 \makeglossaries
 % \renewcommand*{\glstextformat}[1]{\textcolor{black}{#1}} % make glossary color black
 
+\input{lewis_custom_commands}
 \title{OpenMC Depletion Analysis of the Virtual Test Bed Gas-Cooled Microreactor}
 % \title{Title of the Paper Goes Here: Capitalize the First Letter of Major Words, Centered, 14-Point Times New Roman, on the Second Line from the Top Margin, Not More Than Three Lines Long}
 
@@ -50,7 +51,7 @@
 
 %%% Write text for abstract
 %%% Most text modifying commands will work in abstract
-\Abstract{A required 200-250 words abstract should be given here.The abstract highlights the main accomplishments, what is new, and how it relates to the state-of-the-art. \gls{gcmr}}
+\Abstract{OpenMC is a state-of-the art, \gls{os} Monte Carlo transport code. This work uses OpenMC for depletion analysis of the \gls{vtb} \gls{gcmr}. This microreactor features a prismatic, \gls{triso}-fueled, gas-cooled for an infinite-assembly model. Since this reactor is intended for load-following, a depletion analysis was run at 100\%, 50\%, and 10\% of the rated power (225 kWt) for both explicitly represented \gls{triso} and volume-homogenized fuel. The time steps used were twice as long and ten times as long for the lower power cases, respectively, to ensure the same total burnup occurred at each time step. The isotopics after one year of operation at steady-state were compared at each power for both fidelities.}
 
 %%% List up to 5 keywords separated by a comma
 \keywords{OpenMC, TRISO, depletion, microreactor, gas-cooled}
@@ -66,19 +67,32 @@
 \begin{document}
 
 \section{INTRODUCTION}\label{sec:intro}
-\cite{website},\cite{book},\cite{conf_paper},\cite{journal},\cite{report},\cite{proc_paper}
+For advanced reactors, especially those in the early stages, sufficient \gls{ms} is required to ensure the success of the design concept. The \gls{vtb} \cite{vtb2023} is a repository of reactor models used for research and demonstration of current tools in the nuclear industry as a part of the \gls{neams} initiative. Various types of reactors are available on the \gls{vtb}; microreactors are one viable class of next generation systems. [TODO add microreactor refs as appropriate]
+
+% M&S -> VTB -> MICROREACTORS -> GCMR -> previous GCMR work
 
 \section{DEPLETION THEORY}\label{sec:depletion}
 
 \section{SYSTEM DESCRIPTION}\label{sec:system}
+The system analyzed is based from the \gls{vtb} \gls{gcmr}. \cref{fig:vtb_gcmr} shows a diagram of the system.
+\cite{openmc}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{figures/vtb_gcmr_diagram.jpg}
+    \caption{An image of the \gls{vtb} \gls{gcmr} along with a cross section of the fuel containing section of the system.}
+    \label{fig:vtb_gcmr}
+\end{figure}
+
 
 \section{OPENMC MODEL}\label{sec:openmc_model}
+
 
 \section{RESULTS}\label{sec:results}
 Present results.
 
 \section{CONCLUSIONS}\label{sec:conclusions}
-Present summary and conclusions here.
+Present summary and conclusions here
 
 \section*{ACKNOWLEDGEMENTS}
 Acknowledge the help of colleagues, and sources of funding, as appropriate.

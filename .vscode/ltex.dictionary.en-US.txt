@@ -1,3 +1,6 @@
 TRISO
 microreactor
 OpenMC
+isotopics
+burnup
+microreactors
