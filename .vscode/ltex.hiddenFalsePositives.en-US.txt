@@ -1,0 +1,1 @@
+{"rule":"POSSESSIVE_APOSTROPHE","sentence":"^\\QSAM is a systems analysis code that computed heat transfer in the coolant channels.\\E$"}
