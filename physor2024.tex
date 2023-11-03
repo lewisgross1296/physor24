@@ -122,7 +122,7 @@ There are various methods for time integration. Predictor-Corrector methods are 
 \section{OPENMC MODEL}\label{sec:openmc_model}
 This section will describe the \gls{gcmr} system and the corresponding OpenMC model. There are two parts to the model. The first assembles the geometry and material definitions. The second takes this model as input and defines a depletion simulation, facilitating the alternating transport, depletion, and nuclide updates.
 
-\subsection{SYSTEM DESCRIPTION}\label{sec:system}
+\subsection{System Description}\label{sec:system}
  \cref{fig:vtb_gcmr} shows a diagram of the \gls{gcmr}. The overall structural material of the unit cell is graphite, with cylindrical compacts arranged in a hexagonal lattice. The lattice's pitch is $2.00$ cm with the following compacts and their radii: burnable poison ($r=0.25$ cm), moderator ($r=0.95$ cm), coolant ($r=0.6$ cm), fuel ($r=0.9$ cm), and a central control rod ($r=0.99$ cm). The fuel kernel uses a U235 enrichment of 19.95\% inside the center of the \gls{triso} particles. The \gls{triso} has a $40\%$ packing fraction. The moderator uses YH$_{2}$ encased in a FeCrAl envelope ($0.05$ cm thick). The poison compacts contain B$_{4}$C burnable absorber spheres, which have a $25\%$ packing fraction. The coolant uses helium and the control rod chamber has a B$_{4}$C rod. Helium fills the space when the control rod is not fully injected; this helium is not circulating like the coolant. There is a top and bottom reflector made of BeO. Since the goal of this simulation is to determine excess reactivity in the system, the control rod is not inserted into the active core region, resting in the central compact of the upper reflector region \cite{Abdelhameed-ANS-2022}.
 \begin{figure}[h!]
     \centering
@@ -162,12 +162,12 @@ The system is divided into axial layers to compute spatial variation in flux. Si
 \end{figure}
 
 \subsection{Depletion Simulation Definition}\label{sec:depl_sim}
-Once the geometry and material definitions are complete, the depletion simulation accepts them and sets up the simulation, which will alternate between transport and solving the Batemen equations. The cross sections used for transport are continuous energy from ENDF-B-VII.1. The chain file, an XML file used for depletion in OpenMC, contains transmutation and decay data to solve for the burnup matrix and each depletion time step. The chain file selected for this simulation is based on the \gls{casl} project. While the chain originates from a \gls{lwr} system, the similarity of the neutron spectrum, i.e. both thermal, makes this chain file a good choice, since $\phi(E)$ is one of the inputs when computing the burnup matrix. The \gls{casl} chain can be found on OpenMC's website, specifically the portion that provides data for users to download.
+With complete geometry and material definitions, the depletion simulation defines power history, time steps, and an integration scheme. OpenMC then alternates between transport and Batemen equation solves. The cross sections used for transport are continuous energy from ENDF-B-VII.1. The chain file, an XML file used for depletion in OpenMC, contains transmutation and decay data to compute the burnup matrix and each depletion time step. The chain file selected for this simulation is based on the \gls{casl} project. While the chain originates from a \gls{lwr} system, the similarity of the neutron spectrum, i.e. both thermal, makes this chain file a good choice, since $\phi(E)$ is one of the inputs when computing the burnup matrix. The \gls{casl} chain can be found on OpenMC's website, specifically the portion that provides data for users to download.
 
 In this work, the system is held at constant power for each case. This has some implications for the time stepping scheme chosen. To correctly account for the rapid build up of strong neutron absorbers, a few short initial time steps are included to increase those nuclides' accuracy. The time steps can be lengthened after this initial transient behavior, after allowing these important isotopes to reach a steady-state. The time steps for the full power case, in days, were as follows: three one-day time steps, three five-day time steps, and 23 fifteen-day time steps.
 
 \section{RESULTS}\label{sec:results}
-\textbf{introduce better and discuss all intended results} \cref{fig:kinfvsburnup} shows results for the full power case of \kinf versus burnup for the time steps mentioned above. The full paper will show comparison for each lower power case as well.
+There are a few metrics to compare between the different powers and TRISO representations. First, comparing the eigenvalue as a function of burnup gives a way to comapre the effect of homogenization.  \cref{fig:kinfvsburnup} shows results for the full power case of \kinf versus burnup for the time steps mentioned above. The full paper will show comparison for each lower power case as well.
 
 \begin{figure}[!h]
     \centering
@@ -187,14 +187,14 @@ In this work, the system is held at constant power for each case. This has some 
     \label{fig:kinfvsburnup}
 \end{figure}
 
-The above results are in line with previous work measuring the effects of \gls{triso} homogenization. The explicit case has a noticeably higher eigenvalue. The eigenvalue increases for the \gls{triso} case due to the difference between neutrons interactions with the fuel. When the \gls{triso} is explicitly represented, neutrons slow down significantly more before hitting fuel atoms, meaning they thermalize and are more likely to cause fissions. In the homogenized case, the neutrons encounter uranium at higher energies, and thus are more likely to be absorbed in a resonance reaction. \textbf{todo add citations for other homogenization?}
+The above results are in line with previous work measuring the effects of \gls{triso} homogenization. The explicit case has a noticeably higher eigenvalue. The eigenvalue increases for the \gls{triso} case due to the difference between neutrons interactions with the fuel. When the \gls{triso} is explicitly represented, neutrons slow down significantly more before hitting fuel atoms, meaning they thermalize and are more likely to cause fissions. In the homogenized case, the neutrons encounter uranium at higher energies, and thus are more likely to be absorbed in a resonance reaction.
 
+Another metric is the isotopic composition of both systems at each power level. Specific nuclides, such as U235, U238, and Xe135 help understand important aspects of the \gls{gcmr} at shut down. A comparison of the nuclides between fidelities at each power will be included for the final paper.
 
 \section{CONCLUSIONS}\label{sec:conclusions}
-This paper simulated the \gls{vtb} \gls{gcmr} for some preliminary depletion analysis of an infinite assembly model. Since the reactor is intended to load follow, it depleted the system at $100\%$, $500\%$ and $10\%$ power.
-The \kinf versus burnup showed that after one year, the reactor still has excess reactivity for both cases.
+This paper simulated the \gls{vtb} \gls{gcmr}, adding the first depletion analysis for the \gls{gcmr} infinite, unit cell model. Since the reactor is intended to load follow, it depleted the system at $100\%$, $500\%$ and $10\%$ power. The \kinf versus burnup showed that after one year, the reactor still has excess reactivity for both cases. An important next step will be to model depletion during load following transients.
 
-This work extends modeling on the \gls{vtb} \gls{gcmr}. Depletion analysis is new for this system, and is important for a reactor intended to load follow. The software selected for future analyses will rely on Cardinal \cite{novak2022-cardinal}. The Cardinal simulation will couple OpenMC for neutron transport, \gls{moose}'s \gls{hcm} for heat conduction, and \gls{thm} for 1-D thermal hydraulics. After standalone multiphysics work is completed, the future goal is to couple depletion into the multiphysics algorithm to see the impact of depletion on high-fidelity multiphysics.
+The software selected for future analyses will rely on Cardinal \cite{novak2022-cardinal}. The Cardinal simulation will couple OpenMC for neutron transport, \gls{moose}'s \gls{hcm} for heat conduction, and \gls{thm} for 1-D thermal hydraulics. After standalone multiphysics work verification, the future goal is to couple depletion into the multiphysics algorithm to quantify the impact of depletion on high-fidelity multiphysics.
 
 \section*{NOTE TO ORGANIZERS}
 Between now and the final deadline in January, there will be sufficient time to expand this analysis to hit the other power cases for each fidelity. Some results that are intended to be included are
@@ -204,7 +204,7 @@ Between now and the final deadline in January, there will be sufficient time to 
 \end{itemize}
 
 \section*{ACKNOWLEDGEMENTS}
-The authors would like to thank the OpenMC development team for their guidance in model setup and assistance with software. The first author was supported in part by the US Nuclear Regulatory Commission's Graduate Fellowship Program administered by the University of Wisconsin-Madison.
+The authors would like to thank the OpenMC development team for their guidance and assistance with software, as well as the Center for High Throughput Computing at the University of Wisconsin - Madison for their support in using the High Performance Cluster. The first author was supported in part by the US Nuclear Regulatory Commission's Graduate Fellowship Program administered by the University of Wisconsin-Madison.
 
 % \printglossaries
 
