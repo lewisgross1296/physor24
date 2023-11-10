@@ -41,16 +41,16 @@
 \title{Exploring Effects of Homogenization on OpenMC Depletion Analysis of a TRISO Fueled, Helium Cooled Microreactor}
 
 \addAuthor[ligross@wissc.edu]{Lewis I. Gross}{1}
+\addAuthor{Patrick Shriwise}{2,1}
 \addAuthor{Benjamin Lindley}{1}
 \addAuthor{Paul P.~H. Wilson}{1}
 
 %%% Affiliations (from authblk)
 %%% \addAffiliation{affiliationNumber}{Name of Institute, City, State/Country}
 \addAffiliation{1}{University of Wisconsin - Madison, Madison, Wisconsin}
+\addAffiliation{2}{Argonne National Laboratory}
 
-%%% Write text for abstract
-%%% Most text modifying commands will work in abstract
-\Abstract{OpenMC is a state-of-the art, open-source Monte Carlo transport code. This work uses OpenMC for depletion analysis of an infinite, unit cell model of the Virtual Test Bed gas-cooled microreactor. This microreactor is prismatic, TRISO-fueled, and helium gas cooled. Since the gas-cooled microreactor is intended for load-following, a depletion analysis was run at 100\%, 50\%, and 10\% of the rated power (225 kWt) for both explicitly represented TRISO and volume-homogenized fuel cases. \textbf{The time steps selected ensure the same total burnup at each step between power levels.} The system eigenvalue \kinf~was computed at each burnup step. The isotopics after one year of operation at steady-state were compared at each power for both homogenized and explicitly represented TRISO.}
+\Abstract{OpenMC is a state-of-the art, open-source Monte Carlo transport code. This work uses OpenMC for depletion analysis of an infinite, unit cell model of the Virtual Test Bed gas-cooled microreactor. This microreactor is prismatic, TRISO-fueled, and helium gas cooled. Since the gas-cooled microreactor is intended for load-following, depletion analyses were conducted for 100\%, 50\%, and 10\% of the rated power (225 kW$_{th}$) both for explicitly represented TRISO and volume-homogenized fuel compacts. This study aims to quantify the effects of homogenization on the eigenvalue and isotopics at shutdown. Modeling the unit cell will inform about the effects of homogenization on the system before moving on to a full-core model. The system eigenvalue \kinf~was computed at each burnup step. The time steps selected ensure the same total burnup accrues at each step for each power level. The isotopics after one year of operation at steady-state were compared at each power for both homogenized and explicitly represented TRISO.}
 
 %%% List up to 5 keywords separated by a comma
 \keywords{OpenMC, TRISO, depletion, microreactor, gas-cooled}
