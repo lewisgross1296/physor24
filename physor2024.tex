@@ -50,7 +50,7 @@
 \addAffiliation{1}{University of Wisconsin - Madison, Madison, Wisconsin}
 \addAffiliation{2}{Argonne National Laboratory}
 
-\Abstract{OpenMC is a state-of-the art, open-source Monte Carlo transport code. This work uses OpenMC for depletion analysis of an infinite, unit cell model of the Virtual Test Bed gas-cooled microreactor. This microreactor is prismatic, TRISO-fueled, and helium gas cooled. Since the gas-cooled microreactor is intended for load-following, depletion analyses were conducted for 100\%, 50\%, and 10\% of the rated power (225 kW$_{th}$) both for explicitly represented TRISO and volume-homogenized fuel compacts. This study aims to quantify the effects of homogenization on the eigenvalue and isotopics at shutdown. Modeling the unit cell will inform about the effects of homogenization on the system before moving on to a full-core model. The system eigenvalue \kinf~was computed at each burnup step. The time steps selected ensure the same total burnup accrues at each step for each power level. The isotopics after one year of operation at steady-state were compared at each power for both homogenized and explicitly represented TRISO.}
+\Abstract{OpenMC is a state-of-the art, open-source Monte Carlo transport code. This work uses OpenMC for depletion analysis of an infinite, unit cell model of the Virtual Test Bed gas-cooled microreactor. This microreactor is prismatic, TRISO-fueled, and helium gas cooled. Since the gas-cooled microreactor is intended for load-following, depletion analyses were conducted for 100\%, 50\%, and 10\% of the rated power (225 kW$_{th}$) both for explicitly represented TRISO and volume-homogenized fuel compacts. This study aims to quantify the effects of homogenization on the $k$-eigenvalue and isotopics at shutdown. Modeling the unit cell will inform about the effects of homogenization on the system before moving on to a full-core model. The system eigenvalue \kinf~was computed at each burnup step. The time steps selected ensure the same total burnup accrues at each step for each power level. The isotopics after one year of operation at steady-state were compared at each power for both homogenized and explicitly represented TRISO.}
 
 %%% List up to 5 keywords separated by a comma
 \keywords{OpenMC, TRISO, depletion, microreactor, gas-cooled}
@@ -126,8 +126,8 @@ This section will describe the \gls{gcmr} system and the corresponding OpenMC mo
  \cref{fig:vtb_gcmr} shows a diagram of the \gls{gcmr}. The overall structural material of the unit cell is graphite, with cylindrical compacts arranged in a hexagonal lattice. The lattice's pitch is $2.00$ cm with the following compacts and their radii: burnable poison ($r=0.25$ cm), moderator ($r=0.95$ cm), coolant ($r=0.6$ cm), fuel ($r=0.9$ cm), and a central control rod ($r=0.99$ cm). The fuel kernel uses a U235 enrichment of 19.95\% inside the center of the \gls{triso} particles. The \gls{triso} has a $40\%$ packing fraction. The moderator uses YH$_{2}$ encased in a FeCrAl envelope ($0.05$ cm thick). The poison compacts contain B$_{4}$C burnable absorber spheres, which have a $25\%$ packing fraction. The coolant uses helium and the control rod chamber has a B$_{4}$C rod. Helium fills the space when the control rod is not fully injected; this helium is not circulating like the coolant. There is a top and bottom reflector made of BeO. Since the goal of this simulation is to determine excess reactivity in the system, the control rod is not inserted into the active core region, resting in the central compact of the upper reflector region \cite{Abdelhameed-ANS-2022}.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.9\linewidth]{figures/vtb_gcmr_diagram.jpg}
-    \caption{An image of the \gls{vtb} \gls{gcmr} along with a cross section of the fuel containing section of the system.}
+    \includegraphics[width=0.8\linewidth]{figures/vtb_gcmr_diagram.jpg}
+    \caption{The above visualization shows the \gls{vtb} \gls{gcmr} unit cell: both a cross section of the fuel region and a 3D rendering of the fuel and reflectors \cite{Stauff-applications-2022}.}
     \label{fig:vtb_gcmr}
 \end{figure}
 
@@ -136,9 +136,9 @@ The system is divided into axial layers to compute spatial variation in flux. Si
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.525\linewidth]{figures/active_height.png}
+    \includegraphics[width=0.5\linewidth]{figures/active_height.png}
     \label{fig:active_slice}
-    \caption{A radial slice of the active region. Gray corresponds to graphite in the matrix or pyrolitic carbon, dark blue corresponds to helium coolant, red corresponds to YH$_{2}$ moderator, gold corresponds to FeCrAl, green corresponds to the B$_{4}$C poison particles (packed at 25 percent in graphite), and purple corresponds to the fuel kernel in the \gls{triso} particles (packed at 40 percent in graphite).}
+    \caption{This figure shows a radial slice of the active region. Gray corresponds to graphite in the matrix or pyrolitic carbon, dark blue corresponds to helium coolant, red corresponds to YH$_{2}$ moderator, gold corresponds to FeCrAl, green corresponds to the B$_{4}$C poison particles (packed at 25 percent in graphite), and purple corresponds to the fuel kernel in the \gls{triso} particles (packed at 40 percent in graphite).}
     \label{fig:core_slice_sbs}
 \end{figure}
 \begin{figure}[h!]
@@ -156,7 +156,7 @@ The system is divided into axial layers to compute spatial variation in flux. Si
         \label{fig:upper_reflector_slice}
     \end{subfigure}
     \par\medskip
-    \caption{A radial slice of the lower reflector (left) and the upper reflector (right). The difference between the upper and lower reflectors is that the upper reflector has an extra compact for the B$_{4}$C control rod. Dark blue corresponds to helium coolant
+    \caption{This figure shows a  radial slice of the lower reflector (left) and the upper reflector (right). The difference between the upper and lower reflectors is that the upper reflector has an extra compact for the B$_{4}$C control rod. Dark blue corresponds to helium coolant
     and light blue corresponds to BeO, while the B$_{4}$C control rod is shown in green.}
     \label{fig:reflectors}
 \end{figure}
@@ -167,7 +167,7 @@ With complete geometry and material definitions, the depletion simulation define
 In this work, the system is held at constant power for each case. This has some implications for the time stepping scheme chosen. To correctly account for the rapid build up of strong neutron absorbers, a few short initial time steps are included to increase those nuclides' accuracy. The time steps can be lengthened after this initial transient behavior, after allowing these important isotopes to reach a steady-state. The time steps for the full power case, in days, were as follows: three one-day time steps, three five-day time steps, and 23 fifteen-day time steps.
 
 \section{RESULTS}\label{sec:results}
-There are a few metrics to compare between the different powers and TRISO representations. First, comparing the eigenvalue as a function of burnup gives a way to comapre the effect of homogenization.  \cref{fig:kinfvsburnup} shows results for the full power case of \kinf versus burnup for the time steps mentioned above. The full paper will show comparison for each lower power case as well.
+There are a few metrics to compare between the different powers and TRISO representations. First, comparing the eigenvalue as a function of burnup gives a way to compare the effect of homogenization.  \cref{fig:kinf_vs_burnup_100_comp} shows results for the full power case of \kinf versus burnup for the time steps mentioned above. The full paper will show comparison for each power.
 
 \begin{figure}[!h]
     \centering
@@ -175,21 +175,34 @@ There are a few metrics to compare between the different powers and TRISO repres
         \centering
         \includegraphics[width=\linewidth]{figures/explicit_kinf_vs_burnup.png}
         \caption{Explicit}
-        \label{fig:explicit}
     \end{subfigure}
     \begin{subfigure}{0.49\linewidth}
         \centering
         \includegraphics[width=\linewidth]{figures/homogenized_kinf_vs_burnup.png}
         \caption{Homogenized}
-        \label{fig:explicit}
     \end{subfigure}
-    \caption{Pictured above is results for \kinf versus burnup, both for the explicit \gls{triso} representation and homogenized fuel cases.}
-    \label{fig:kinfvsburnup}
+    \caption{This figure compares \kinf between the explicit \gls{triso} and homogenized  fuel at each burnup. \textit{Note this was only for 1 year. For the full paper, this will extend to match the other cases.}}
+    \label{fig:kinf_vs_burnup_100_comp}
 \end{figure}
 
-The above results are in line with previous work measuring the effects of \gls{triso} homogenization. The explicit case has a noticeably higher eigenvalue. The eigenvalue increases for the \gls{triso} case due to the difference between neutrons interactions with the fuel. When the \gls{triso} is explicitly represented, neutrons slow down significantly more before hitting fuel atoms, meaning they thermalize and are more likely to cause fissions. In the homogenized case, the neutrons encounter uranium at higher energies, and thus are more likely to be absorbed in a resonance reaction.
+The above results are in line with previous work and theory on the effects of \gls{triso} homogenization. The explicit case has a noticeably higher eigenvalue. The eigenvalue increases for the \gls{triso} case due to the difference between neutrons interactions with the fuel. When the \gls{triso} is explicitly represented, neutrons slow down significantly more before hitting fuel atoms, meaning they thermalize and are more likely to cause fissions. In the homogenized case, the neutrons encounter uranium at higher energies, and thus are more likely to be absorbed in a resonance reaction. Next, \cref{fig:all_powers_kinf_vs_burnup} shows \kinf for the homogenized cases, which gives an idea of how the system will burnup at various powers.
+\vspace*{-0.45cm}
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{figures/all_homog_burnup_as_function_of_keff.png}
+    \caption{This figure compares \kinf for each power level among the volume homogenized fuel cases.}
+    \label{fig:all_powers_kinf_vs_burnup}
+\end{figure}
 
-Another metric is the isotopic composition of both systems at each power level. Specific nuclides, such as U235, U238, and Xe135 help understand important aspects of the \gls{gcmr} at shut down. A comparison of the nuclides between fidelities at each power will be included for the final paper.
+The above shows that the lower the power, the more excess reactivity is left at the end of the cycle, despite each time step using the same total burnup between powers. All three systems start at \kinf$=1.1945 \pm 0.0013 $ but end up at \kinf$=1.1196 \pm 0.0011 $, \kinf$=1.1229 \pm 0.0012$, and \kinf$=1.1279 \pm 0.0012$ for full, half, and one-tenth power respectively. In order to explain this trend, it will be useful to examine the Xenon-135 atom densities for each case at each burnup step, shown in \cref{fig:homog_xenons}.
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{figures/mid_compact_layer_8_Xe135.png}
+    \caption{This figure shows Xenon-135 atom density for each burnup step in the depletion simulation. The atom density shown here is for the 8th layer of 16 in the fuel region for one of the compacts in the innermost ring, around the control rod hole. }
+    \label{fig:homog_xenons}
+\end{figure}
+
+The above figure shows that the Xenon concentrations have an initial jump at start up and level out to equilibirum concentrations; the highest presence of Xenon is at full power and it gets lower as power lowers. Since Xenon-135 is a strong neutron poison, fuel has to compete with absorption in Xenon. The stronger the Xenon presence, the slower fuel atoms will deplete, explaining the observed trends between the homogenized cases. With explicit TRISO results for all powers, a comparison will inform on the effects of homogenization at each power level, including \keff and the isotopics at shutdown.
 
 \section{CONCLUSIONS}\label{sec:conclusions}
 This paper simulated the \gls{vtb} \gls{gcmr}, adding the first depletion analysis for the \gls{gcmr} infinite, unit cell model. Since the reactor is intended to load follow, it depleted the system at $100\%$, $500\%$ and $10\%$ power. The \kinf versus burnup showed that after one year, the reactor still has excess reactivity for both cases. An important next step will be to model depletion during load following transients.
@@ -197,10 +210,10 @@ This paper simulated the \gls{vtb} \gls{gcmr}, adding the first depletion analys
 The software selected for future analyses will rely on Cardinal \cite{novak2022-cardinal}. The Cardinal simulation will couple OpenMC for neutron transport, \gls{moose}'s \gls{hcm} for heat conduction, and \gls{thm} for 1-D thermal hydraulics. After standalone multiphysics work verification, the future goal is to couple depletion into the multiphysics algorithm to quantify the impact of depletion on high-fidelity multiphysics.
 
 \section*{NOTE TO ORGANIZERS}
-Between now and the final deadline in January, there will be sufficient time to expand this analysis to hit the other power cases for each fidelity. Some results that are intended to be included are
+Between now and the final deadline in January, there will be sufficient time to expand this analysis to hit the other power cases for the fully explicit case. Some results that are intended to be included are
 \begin{itemize}
     \item Longer depletion simulations (to find out when reactor goes subcritical)
-    \item Isotopic comparison of important nuclides (U235,U238,Xe135) at the end of cycle
+    \item Isotopic comparison of important nuclides (U235,U238,Xe135) at the point when the reactor goes subcritical
 \end{itemize}
 
 \section*{ACKNOWLEDGEMENTS}
