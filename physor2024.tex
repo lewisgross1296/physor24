@@ -38,7 +38,7 @@
 
 \input{lewis_custom_commands}
 % \title{OpenMC Depletion Analysis of a TRISO Fueled, Helium Cooled Microreactor}
-\title{Exploring Effects of Homogenization on OpenMC Depletion Analysis of a TRISO Fueled, Helium Cooled Microreactor}
+\title{Exploring Effects of Homogenization on an OpenMC Depletion Analysis of a TRISO Fueled, Helium Cooled Microreactor}
 
 \addAuthor[ligross@wissc.edu]{Lewis I. Gross}{1}
 \addAuthor{Patrick Shriwise}{2,1}
@@ -50,7 +50,7 @@
 \addAffiliation{1}{University of Wisconsin - Madison, Madison, Wisconsin}
 \addAffiliation{2}{Argonne National Laboratory}
 
-\Abstract{OpenMC is a state-of-the art, open-source Monte Carlo transport code. This work uses OpenMC for depletion analysis of an infinite, unit cell model of the Virtual Test Bed gas-cooled microreactor. This microreactor is prismatic, TRISO-fueled, and helium gas cooled. Since the gas-cooled microreactor is intended for load-following, depletion analyses were conducted for 100\%, 50\%, and 10\% of the rated power (225 kW$_{th}$) both for explicitly represented TRISO and volume-homogenized fuel compacts. This study aims to quantify the effects of homogenization on the $k$-eigenvalue and isotopics at shutdown. Modeling the unit cell will inform about the effects of homogenization on the system before moving on to a full-core model. The system eigenvalue \kinf~was computed at each burnup step. The time steps selected ensure the same total burnup accrues at each step for each power level. The isotopics after one year of operation at steady-state were compared at each power for both homogenized and explicitly represented TRISO.}
+\Abstract{OpenMC is a state-of-the art, open-source Monte Carlo transport code. This work used OpenMC for depletion analysis of an infinite, unit cell model of the Virtual Test Bed gas-cooled microreactor. This microreactor is prismatic, TRISO-fueled, and helium gas cooled. Since the gas-cooled microreactor is intended for load-following, depletion analyses were conducted for 100\%, 50\%, and 10\% of the rated power (225 kW$_{th}$) both for explicitly represented TRISO and volume-homogenized fuel compacts. This study aims to quantify the effects of homogenization on the $k$-eigenvalue and isotopics at shutdown. Modeling the unit cell will inform about the effects of homogenization on the system before moving on to a full-core model. The system eigenvalue \kinf~was computed at each burnup step. The time steps selected ensure the same total burnup accrues at each step for each power level. The isotopics after one year of operation at steady-state were compared at each power for both homogenized and explicitly represented TRISO.}
 
 %%% List up to 5 keywords separated by a comma
 \keywords{OpenMC, TRISO, depletion, microreactor, gas-cooled}
@@ -66,7 +66,7 @@
 \begin{document}
 
 \section{INTRODUCTION}\label{sec:intro}
-For advanced reactors, especially those early in the design stage, sufficient \gls{ms} are required to ensure the success of the design concept. Before any system can be built, modelers must prove systems perform safely. The \gls{vtb} \cite{vtb2023} is a repository of reactor models used for research and demonstration of current tools in the nuclear industry as a part of the \gls{neams} initiative. Various types of reactors are available on the \gls{vtb}. Microreactors are one viable class of next generation systems with ongoing modeling efforts using \gls{neams} tools \cite{Stauff-preliminary-applications-2021, Stauff-applications-2022}. One key advantage of microreactors is the ability to supply power to lower demand areas that may not be able to consume power on the order of a GW reactor or to areas needing temporary power, e.g.~natural disaster relief efforts. While microreactors can be diverse in fuel, coolant, and general design, there is interest in combining \gls{htgr} and microreactor technologies. \glspl{htgr} have the benefits of higher electricity conversion efficiency from higher temperature coolant plus the desirable melting properties of \gls{triso} fuel. Adding these benefits to a microreactor bring many attractive features together.
+For advanced reactors, especially those early in the design stage, sufficient \gls{ms} are required to ensure the success of the design concept. Before any system can be built, modelers must prove systems perform safely. The \gls{vtb} \cite{vtb2023} is a repository of reactor models used for research and demonstration of current tools in the nuclear industry as a part of the \gls{neams} initiative. Various types of reactors are available on the \gls{vtb}. Microreactors are one viable class of next generation systems with ongoing modeling efforts using \gls{neams} tools \cite{Stauff-preliminary-applications-2021, Stauff-applications-2022}. One key advantage of microreactors is the ability to supply power to lower demand areas that may not be able to consume power on the order of a GW reactor or to areas needing temporary power, e.g.~natural disaster relief efforts. While microreactors can be diverse in fuel, coolant, and general design, there is interest in combining \gls{htgr} and microreactor technologies. \glspl{htgr} have the benefits of higher electricity conversion efficiency from higher temperature coolant which synergizes with the desirable melting properties of \gls{triso} fuel. Adding these benefits to a microreactor bring many attractive features together.
 
 Previous work on the \gls{vtb} \gls{gcmr} includes analysis of the system for a two day load-following transient \cite{Abdelhameed-ANS-2022}. This work coupled Griffin, BISON, and SAM using the \gls{moose} framework. Griffin computed a solution to the neutron transport equation using a deterministic method, specifically the discrete ordinates and discontinuous finite element methods with the coarse mesh finite element method for acceleration. BISON is a fuel performance code that computed heat conduction in the solid parts of the system. SAM is a systems analysis code that computed heat transfer in the coolant channels.
 
@@ -79,7 +79,7 @@ The rest of this paper will be organized as follows. \cref{sec:depletion} will p
 \section{DEPLETION THEORY}\label{sec:depletion}
 Once any reactor starts running, the composition of isotopes will change over time. Nuclides exposed to neutron flux will transmute into radioisotopes that have various modes of decay, creating new isotopes that did not exist at the start of operation, as well as decaying into other isotopes already in the system. The rate at which isotopes transmute and decay into each other depends on the transport solution via the reaction rates, which depend directly on the neutron flux. This relationship causes the coupling between transport and depletion to behave non-linearly \cite{romano-depletion-2021}.
 
-Certain isotopes have more influence on the system than others. For example, Xenon-135 has an extremely high neutron absorption cross section. It is so high that its negative reactivity insertion influences the positioning of the control elements. Xenon-135 is particularly important in load-following contexts, in which the power changes once or twice per day, as it's concentration increases when power decreases, and it is burned off when power increases again. This matters more in load-following contexts because the Xenon-135 half-life is on the order of 9 hours \cite{d-and-h}. For context, the load following schedule in Abdelhameed et al. has high power for 12 hours, lower power for 7 hours, and 2.5 hour ramps between, inspired from the NEA OECD report on load-following \cite{Abdelhameed-ANS-2022,nea-oecd-LF}.
+Certain isotopes have more influence on the system than others. For example, Xenon-135 has an extremely high neutron absorption cross section. It is so high that its negative reactivity insertion influences the positioning of the control elements. Xenon-135 is particularly important in load-following contexts, in which the power changes once or twice per day, as its concentration increases when power decreases, and it is burned off when power increases again. This matters more in load-following contexts because the Xenon-135 half-life is on the order of 9 hours \cite{d-and-h}. For context, the load following schedule in Abdelhameed et al. has high power for 12 hours, low power for 7 hours, and 2.5 hour ramps between, inspired from the NEA OECD report on load-following \cite{Abdelhameed-ANS-2022,nea-oecd-LF}.
 
 To model burnup, transmutation and decay cross sections of the isotopes are combined with the computed flux to determine production and destruction rates for each isotope. These formulate a system of differential equations for the nuclide densities. For isotope $i$ with number density $N_{i}(t)$, the Bateman or burnup equations describe the time dependent isotopic composition, given by
 
@@ -108,7 +108,7 @@ To model burnup, transmutation and decay cross sections of the isotopes are comb
 
 \noindent The solution to which is
 \begin{equation} \label{eq:separation solution}
-     \textbf{n}(t) = \exp(\textbf{A}t) \textbf{n}_{0}
+     \textbf{n}(t) = e^{\textbf{A}t} \textbf{n}_{0}
 \end{equation}
 
 \noindent Solving \cref{eq:separable burnup matrix odes} and \cref{eq:separation solution} involves two separate components \cite{romano-depletion-2021}:
@@ -117,20 +117,35 @@ To model burnup, transmutation and decay cross sections of the isotopes are comb
     \item Evaluating the matrix exponential $\exp(\textbf{A}t)$ or the action of the matrix exponential on a vector of nuclide concentrations.
 \end{enumerate}
 
-There are various methods for time integration. Predictor-Corrector methods are commonly used for time integration in burnup contexts. In this study, the second order \gls{cecm} is chosen, which is implemented by OpenMC and based on work comparing various integration schemes for depletion \cite{isotalo_comparison_2015}. Since the method is second order, it requires two transport solves per depletion time step: one for the prediction and one for the correction. Using appropriate time steps for the quasi static assumption of burnup is also important. Namely, using smaller time steps when nuclide concentrations are expected to be changing more rapidly and smaller time steps when nuclide concentrations are expected to be changing more slowly.
+There are various methods for time integration. Predictor-Corrector methods are commonly used for time integration in burnup contexts. In this study, the second order \gls{cecm} is chosen, which is implemented by OpenMC and based on work comparing various integration schemes for depletion \cite{isotalo_comparison_2015}. Since the method is second order, it requires two transport solves per depletion time step: one for the prediction and one for the correction. Using appropriate time steps for the quasi static assumption of burnup is also important. Namely, using smaller time steps when nuclide concentrations are expected to be changing more rapidly and larger time steps when nuclide concentrations are expected to be changing more slowly.
 
 \section{OPENMC MODEL}\label{sec:openmc_model}
 This section will describe the \gls{gcmr} system and the corresponding OpenMC model. There are two parts to the model. The first assembles the geometry and material definitions. The second takes this model as input and defines a depletion simulation, facilitating the alternating transport, depletion, and nuclide updates.
 
 \subsection{System Description}\label{sec:system}
- \cref{fig:vtb_gcmr} shows a diagram of the \gls{gcmr}. The overall structural material of the unit cell is graphite, with cylindrical compacts arranged in a hexagonal lattice. The lattice's pitch is $2.00$ cm with the following compacts and their radii: burnable poison ($r=0.25$ cm), moderator ($r=0.95$ cm), coolant ($r=0.6$ cm), fuel ($r=0.9$ cm), and a central control rod ($r=0.99$ cm). The fuel kernel uses a U235 enrichment of 19.95\% inside the center of the \gls{triso} particles. The \gls{triso} has a $40\%$ packing fraction. The moderator uses YH$_{2}$ encased in a FeCrAl envelope ($0.05$ cm thick). The poison compacts contain B$_{4}$C burnable absorber spheres, which have a $25\%$ packing fraction. The coolant uses helium and the control rod chamber has a B$_{4}$C rod. Helium fills the space when the control rod is not fully injected; this helium is not circulating like the coolant. There is a top and bottom reflector made of BeO. Since the goal of this simulation is to determine excess reactivity in the system, the control rod is not inserted into the active core region, resting in the central compact of the upper reflector region \cite{Abdelhameed-ANS-2022}.
+ \cref{fig:vtb_gcmr} shows a diagram of the \gls{gcmr}. The overall structural material of the unit cell is graphite, with cylindrical compacts arranged in a hexagonal lattice. \cref{tab:dimensions} shows various dimensions and system parameters. The moderator uses YH$_{2}$ encased in a FeCrAl envelope. The poison compacts contain burnable B$_{4}$C spheres packed into graphite. The coolant uses helium. There is a top and bottom reflector made of BeO. Since the goal of this simulation is to determine excess reactivity, the B$_{4}$C control rod rests in the central compact of the upper reflector and is not inserted into the active core region, which instead is filled with non-circulating helium \cite{Abdelhameed-ANS-2022}.
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.8\linewidth]{figures/vtb_gcmr_diagram.jpg}
+    \includegraphics[width=0.725\linewidth]{figures/vtb_gcmr_diagram.jpg}
     \caption{The above visualization shows the \gls{vtb} \gls{gcmr} unit cell: both a cross section of the fuel region and a 3D rendering of the fuel and reflectors \cite{Stauff-applications-2022}.}
     \label{fig:vtb_gcmr}
 \end{figure}
-
+\vspace*{-0.6cm}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    fuel radius & poison radius & moderator radius & control radius & coolant radius \\
+    0.90 cm & 0.25 cm   & 0.95 cm  & 0.99 cm    & 0.60 cm  \\
+    \hline
+     FeCrAl thickness & pin pitch & fuel packing fraction & poison packing fraction & enrichment \\
+     0.05 cm & 2.00 cm  & 0.4 -  & 0.25 - & 19.95\% \\
+    \hline
+    \end{tabular}
+    \caption{This table summarizes key dimensions of the compacts and parameters of the fuel and poison.}
+    \label{tab:dimensions}
+\end{table}
+\vspace*{-0.5cm}
 \subsection{Model Definition}\label{sec:model_def}
 The system is divided into axial layers to compute spatial variation in flux. Since flux is a key input in to depletion, this allows depletion to also take advantage of the axial discretization and deplete at different rates accordingly. The axial division matched exactly the choice of \cite{Abdelhameed-ANS-2022}, which includes two regions per reflector and 16 regions in the active fuel region. The heights of each region are 20 cm for each reflector and 160 cm for the fuel, which corresponds to each axial layer modeling 10 cm of the reactor. \cref{fig:core_slice_sbs} shows a radial slice of the fuel portion of the reactor. \cref{fig:reflectors} shows a radial slice of each reflector region.
 
@@ -162,13 +177,13 @@ The system is divided into axial layers to compute spatial variation in flux. Si
 \end{figure}
 
 \subsection{Depletion Simulation Definition}\label{sec:depl_sim}
-With complete geometry and material definitions, the depletion simulation defines power history, time steps, and an integration scheme. OpenMC then alternates between transport and Batemen equation solves. The cross sections used for transport are continuous energy from ENDF-B-VII.1. The chain file, an XML file used for depletion in OpenMC, contains transmutation and decay data to compute the burnup matrix and each depletion time step. The chain file selected for this simulation is based on the \gls{casl} project. While the chain originates from a \gls{lwr} system, the similarity of the neutron spectrum, i.e. both thermal, makes this chain file a good choice, since $\phi(E)$ is one of the inputs when computing the burnup matrix. The \gls{casl} chain can be found on OpenMC's website, specifically the portion that provides data for users to download.
+With complete geometry and material definitions, the depletion simulation defines power history, time steps, and an integration scheme. OpenMC then alternates between transport and Batemen equation solves. The cross sections used for transport are continuous energy from ENDF-B-VII.1. The chain file, an XML file used for depletion in OpenMC, contains transmutation and decay data necessary to compute the burnup matrix. This simulation used a chain based on the \gls{casl} project \cite{CASL-report} and is provided by OpenMC \cite{openmc-chains}  While the chain originates from a \gls{lwr} system, the similarity of the neutron spectrum, i.e. both thermal, makes this chain file a good choice, since $\phi(E)$ is one of the inputs when computing the burnup matrix. The \gls{casl} chain can be found on OpenMC's website, specifically the portion that provides data for users to download.
 
-In this work, the system is held at constant power for each case. This has some implications for the time stepping scheme chosen. To correctly account for the rapid build up of strong neutron absorbers, a few short initial time steps are included to increase those nuclides' accuracy. The time steps can be lengthened after this initial transient behavior, after allowing these important isotopes to reach a steady-state. The time steps for the full power case, in days, were as follows: three one-day time steps, three five-day time steps, and 23 fifteen-day time steps.
+In this work, the system is held at constant power for each case. This has some implications for the time stepping scheme chosen. To correctly account for the rapid build up of strong neutron absorbers, a few short initial time steps are included to increase those nuclides' accuracy. The time steps can be lengthened after this initial transient behavior, after allowing these important isotopes to reach a steady-state. Two different time steps were used for the results in \cref{sec:results}. For the comparison at full power between explicit and homogenized cases, the time steps were as follows: three one-day time steps, three five-day time steps, and 23 fifteen-day time steps. For the comparison between all homogenized cases, three sets of time steps were used to ensure the same total burnup occurred at each step. The full power case used five one-day time steps, 3 five-day time steps, three fifteen-day time steps, and ten 60 day timesteps. The half and tenth power cases in this comparison use the same number of steps, with twice as long and ten times as long intervals, respecitvely.
 
 \section{RESULTS}\label{sec:results}
 There are a few metrics to compare between the different powers and TRISO representations. First, comparing the eigenvalue as a function of burnup gives a way to compare the effect of homogenization.  \cref{fig:kinf_vs_burnup_100_comp} shows results for the full power case of \kinf versus burnup for the time steps mentioned above. The full paper will show comparison for each power.
-
+\vspace*{-0.25cm}
 \begin{figure}[!h]
     \centering
     \begin{subfigure}{0.49\linewidth}
@@ -181,20 +196,21 @@ There are a few metrics to compare between the different powers and TRISO repres
         \includegraphics[width=\linewidth]{figures/homogenized_kinf_vs_burnup.png}
         \caption{Homogenized}
     \end{subfigure}
-    \caption{This figure compares \kinf between the explicit \gls{triso} and homogenized  fuel at each burnup. \textit{Note this was only for 1 year. For the full paper, this will extend to match the other cases.}}
+    \caption{This figure compares \kinf for the explicit and homogenized fuel up to 9.125 GWd/tonne-U.}
     \label{fig:kinf_vs_burnup_100_comp}
 \end{figure}
 
-The above results are in line with previous work and theory on the effects of \gls{triso} homogenization. The explicit case has a noticeably higher eigenvalue. The eigenvalue increases for the \gls{triso} case due to the difference between neutrons interactions with the fuel. When the \gls{triso} is explicitly represented, neutrons slow down significantly more before hitting fuel atoms, meaning they thermalize and are more likely to cause fissions. In the homogenized case, the neutrons encounter uranium at higher energies, and thus are more likely to be absorbed in a resonance reaction. Next, \cref{fig:all_powers_kinf_vs_burnup} shows \kinf for the homogenized cases, which gives an idea of how the system will burnup at various powers.
+The above results are in line with previous work and theory on the effects of \gls{triso} homogenization. The explicit case has a noticeably higher eigenvalue caused by neutron interactions with the fuel. When the \gls{triso} is explicitly represented, neutrons slow down significantly more before hitting fuel atoms and thus are more likely to cause fissions. In the homogenized case, the neutrons encounter uranium at higher energies and thus are more likely to be absorbed in the resonance region.
+
+Next, \cref{fig:all_powers_kinf_vs_burnup} shows \kinf for the homogenized cases, which shows the simulation's prediction of how the system will burnup at various powers. In order to explain the trends, it will be useful to examine the Xenon-135 atom densities for each case, shown in \cref{fig:homog_xenons}.
 \vspace*{-0.45cm}
 \begin{figure}[!h]
     \centering
-    \includegraphics[width=0.6\linewidth]{figures/all_homog_burnup_as_function_of_keff.png}
+    \includegraphics[width=0.65\linewidth]{figures/all_homog_burnup_as_function_of_keff.png}
     \caption{This figure compares \kinf for each power level among the volume homogenized fuel cases.}
     \label{fig:all_powers_kinf_vs_burnup}
 \end{figure}
-
-The above shows that the lower the power, the more excess reactivity is left at the end of the cycle, despite each time step using the same total burnup between powers. All three systems start at \kinf$=1.1945 \pm 0.0013 $ but end up at \kinf$=1.1196 \pm 0.0011 $, \kinf$=1.1229 \pm 0.0012$, and \kinf$=1.1279 \pm 0.0012$ for full, half, and one-tenth power respectively. In order to explain this trend, it will be useful to examine the Xenon-135 atom densities for each case at each burnup step, shown in \cref{fig:homog_xenons}.
+\vspace*{-0.7cm}
 \begin{figure}[!h]
     \centering
     \includegraphics[width=0.6\linewidth]{figures/mid_compact_layer_8_Xe135.png}
@@ -202,10 +218,10 @@ The above shows that the lower the power, the more excess reactivity is left at 
     \label{fig:homog_xenons}
 \end{figure}
 
-The above figure shows that the Xenon concentrations have an initial jump at start up and level out to equilibirum concentrations; the highest presence of Xenon is at full power and it gets lower as power lowers. Since Xenon-135 is a strong neutron poison, fuel has to compete with absorption in Xenon. The stronger the Xenon presence, the slower fuel atoms will deplete, explaining the observed trends between the homogenized cases. With explicit TRISO results for all powers, a comparison will inform on the effects of homogenization at each power level, including \keff and the isotopics at shutdown.
+The above shows that the lower the power, the more excess reactivity is left at the end of the cycle, despite each time step using the same total burnup. All three systems start at \kinf$=1.1945 \pm 0.0013 $ but end up at \kinf$=1.1196 \pm 0.0011 $, \kinf$=1.1229 \pm 0.0012$, and \kinf$=1.1279 \pm 0.0012$ for full, half, and one-tenth power respectively. The Xenon concentrations have an initial jump at start up and level out to equilibrium concentrations. The highest equilibrium concentration of Xenon is at full power, and the equilibrium states lowers as power lowers. Since Xenon-135 is a strong neutron poison, fuel has to compete with absorption in Xenon. The stronger the Xenon presence, the slower fuel atoms will deplete, explaining the observed trends between the homogenized cases.
 
 \section{CONCLUSIONS}\label{sec:conclusions}
-This paper simulated the \gls{vtb} \gls{gcmr}, adding the first depletion analysis for the \gls{gcmr} infinite, unit cell model. Since the reactor is intended to load follow, it depleted the system at $100\%$, $500\%$ and $10\%$ power. The \kinf versus burnup showed that after one year, the reactor still has excess reactivity for both cases. An important next step will be to model depletion during load following transients.
+This paper simulated the \gls{vtb} \gls{gcmr}, adding the first depletion analysis for the \gls{gcmr} infinite, unit cell model. Since the reactor is intended to load follow, it depleted the system at $100\%$, $50\%$ and $10\%$ power. The \kinf versus burnup showed that the reactor still has excess reactivity for the explicit case after one year and after two years for all three homogenized cases. With explicit TRISO results for all powers, a comparison will inform on the effects of homogenization at each power level, including \kinf and the isotopics at shutdown. An important next step will be to model depletion during load following transients.
 
 The software selected for future analyses will rely on Cardinal \cite{novak2022-cardinal}. The Cardinal simulation will couple OpenMC for neutron transport, \gls{moose}'s \gls{hcm} for heat conduction, and \gls{thm} for 1-D thermal hydraulics. After standalone multiphysics work verification, the future goal is to couple depletion into the multiphysics algorithm to quantify the impact of depletion on high-fidelity multiphysics.
 
