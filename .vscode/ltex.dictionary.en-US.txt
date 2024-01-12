@@ -17,3 +17,4 @@ eVinci
 pyrolitic
 fissioned
 isotopics at
+depletable
