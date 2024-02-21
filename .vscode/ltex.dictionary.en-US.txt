@@ -18,3 +18,4 @@ pyrolitic
 fissioned
 isotopics at
 depletable
+SiC
